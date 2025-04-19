@@ -3693,12 +3693,12 @@ function newParser(Application|Service $resource, int $pull_request_id = 0, ?int
         }
         // Add COOLIFY_FQDN & COOLIFY_URL to environment
         if (! $isDatabase && $fqdns instanceof Collection && $fqdns->count() > 0) {
-            $coolifyEnvironments->put('COOLIFY_URL', $fqdns->implode(','));
+            $coolifyEnvironments->put('COOLIFY_FQDN', $fqdns->implode(','));
 
             $urls = $fqdns->map(function ($fqdn) {
                 return str($fqdn)->replace('http://', '')->replace('https://', '');
             });
-            $coolifyEnvironments->put('COOLIFY_FQDN', $urls->implode(','));
+            $coolifyEnvironments->put('COOLIFY_URL', $urls->implode(','));
         }
         add_coolify_default_environment_variables($resource, $coolifyEnvironments, $resource->environment_variables);
 
